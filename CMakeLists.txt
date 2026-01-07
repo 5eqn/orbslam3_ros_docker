@@ -170,14 +170,14 @@ target_link_libraries(${PROJECT_NAME}
 )
 
 ### ROS node
-#add_executable(ros_mono
-  #src/ros_mono.cc
-  #src/common.cc
-#)
-#target_link_libraries(ros_mono
-  #${PROJECT_NAME}
-  #${catkin_LIBRARIES}
-#)
+add_executable(ros_mono
+  src/ros_mono.cc
+  src/common.cc
+)
+target_link_libraries(ros_mono
+  ${PROJECT_NAME}
+  ${catkin_LIBRARIES}
+)
 
 ## ROS node
 add_executable(ros_mono_inertial 
