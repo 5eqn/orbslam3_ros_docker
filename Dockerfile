@@ -8,3 +8,5 @@ ADD allan_variance_ros ./src/allan_variance_ros
 RUN catkin build allan_variance_ros
 COPY pi.yaml ./src/orb_slam3_ros/config/Monocular/pi.yaml
 COPY pi.launch ./src/orb_slam3_ros/launch/pi.launch
+COPY decompress_node.py /decompress_node.py
+COPY orbslam3_init.sh /orbslam3_init.sh

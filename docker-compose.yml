@@ -14,7 +14,7 @@ services:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
     ports:
       - "11311:11311"  # 暴露ROS主节点端口
-    command: roscore
+    command: bash /orbslam3_init.sh
     tty: true
     stdin_open: true
 
