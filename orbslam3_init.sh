@@ -1,2 +1,2 @@
 python /decompress_node.py &
-roscore
+roslaunch ros_tcp_endpoint endpoint.launch

@@ -14,6 +14,8 @@ services:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
     ports:
       - "11311:11311"  # 暴露ROS主节点端口
+      - "51121:51121"  # 暴露自定义服务端口
+      - "10000:10000"  # 暴露Unity端口
     command: bash /orbslam3_init.sh
     tty: true
     stdin_open: true
