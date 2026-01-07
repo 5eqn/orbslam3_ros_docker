@@ -5,4 +5,5 @@ COPY ros_mono_inertial.cc ./src/orb_slam3_ros/src/ros_mono_inertial.cc
 RUN catkin build
 ADD allan_variance_ros ./src/allan_variance_ros
 RUN catkin build allan_variance_ros
-COPY pi.yaml /overlay_ws/src/orb_slam3_ros/config/Monocular/pi.yaml
+COPY pi.yaml ./src/orb_slam3_ros/config/Monocular/pi.yaml
+COPY pi.launch ./src/orb_slam3_ros/launch/pi.yaml
