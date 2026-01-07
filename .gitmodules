@@ -1,0 +1,3 @@
+[submodule "allan_variance_ros"]
+	path = allan_variance_ros
+	url = https://github.com/ori-drs/allan_variance_ros
