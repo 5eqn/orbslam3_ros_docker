@@ -1,6 +1,6 @@
 services:
   orbslam3:
-    image: orbslam3_ros:v2
+    image: orbslam3_ros:v4
     container_name: orbslam3
     hostname: orbslam3
     networks:
@@ -8,6 +8,10 @@ services:
     environment:
       - ROS_HOSTNAME=orbslam3
       - ROS_MASTER_URI=http://orbslam3:11311
+      - DISPLAY=:1
+      - QT_X11_NO_MITSHM=1
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
     ports:
       - "11311:11311"  # 暴露ROS主节点端口
     command: roscore
@@ -26,15 +30,13 @@ services:
       - ROS_HOSTNAME=kalibr
       - ROS_MASTER_URI=http://orbslam3:11311
       - ROS_IP=kalibr
+      - DISPLAY=:2
+      - QT_X11_NO_MITSHM=1
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
     command: tail -f /dev/null
     tty: true
     stdin_open: true
-    # volumes:
-    #   - /tmp/.X11-unix:/tmp/.X11-unix
-    #   - ~/.Xauthority:/root/.Xauthority:rw
-    # environment:
-    #   - DISPLAY=${DISPLAY}
-    #   - QT_X11_NO_MITSHM=1
 
 networks:
   ros-network:

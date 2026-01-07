@@ -3,3 +3,6 @@ LABEL maintainer="subcat2077@gmail.com"
 COPY CMakeLists.txt ./src/orb_slam3_ros/CMakeLists.txt
 COPY ros_mono_inertial.cc ./src/orb_slam3_ros/src/ros_mono_inertial.cc
 RUN catkin build
+ADD allan_variance_ros ./src/allan_variance_ros
+RUN catkin build allan_variance_ros
+COPY pi.yaml /overlay_ws/src/orb_slam3_ros/config/Monocular/pi.yaml
