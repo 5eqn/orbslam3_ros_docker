@@ -1,2 +1,2 @@
-python decompress_node.py &
+python /decompress_node.py &
 roscore
