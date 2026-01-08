@@ -11,4 +11,5 @@ RUN catkin build ros_tcp_endpoint
 COPY pi.yaml ./src/orb_slam3_ros/config/Monocular/pi.yaml
 COPY pi.launch ./src/orb_slam3_ros/launch/pi.launch
 COPY decompress_node.py /decompress_node.py
+COPY server.py /server.py
 COPY orbslam3_init.sh /orbslam3_init.sh

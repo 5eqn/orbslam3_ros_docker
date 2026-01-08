@@ -1,6 +1,6 @@
 services:
   orbslam3:
-    image: orbslam3_ros:v4
+    image: orbslam3_ros:v6
     container_name: orbslam3
     hostname: orbslam3
     networks:
