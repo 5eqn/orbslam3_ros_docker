@@ -1353,6 +1353,8 @@ vector<cv::KeyPoint> System::GetTrackedKeyPoints() {
 
 cv::Mat System::GetCurrentFrame() { return mpFrameDrawer->DrawFrame(); }
 
+cv::Mat System::GetOriginalFrame() { return mpTracker->mImColor; }
+
 Sophus::SE3f System::GetCamTwc() { return mpTracker->GetCamTwc(); }
 
 Sophus::SE3f System::GetImuTwb() { return mpTracker->GetImuTwb(); }

@@ -432,10 +432,10 @@ bool get_tracking_data_srv(orb_slam3_ros::GetTrackingData::Request &req,
     }
 
     // 3. 获取当前跟踪图像（与publish_tracking_img逻辑一致）
-    cv::Mat current_cv_image = pSLAM->GetCurrentFrame();
+    cv::Mat current_cv_image = pSLAM->GetOriginalFrame();
     if (current_cv_image.empty())
     {
-        ROS_WARN("Current tracking image is empty, return empty image.");
+        ROS_WARN("Current original image is empty, return empty image.");
     }
     else
     {

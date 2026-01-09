@@ -188,6 +188,7 @@ public:
   std::vector<MapPoint *> GetAllMapPoints();
   std::vector<Sophus::SE3f> GetAllKeyframePoses();
   cv::Mat GetCurrentFrame();
+  cv::Mat GetOriginalFrame();
 
   Sophus::SE3f GetCamTwc();
   Sophus::SE3f GetImuTwb();
