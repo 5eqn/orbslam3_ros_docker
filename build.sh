@@ -1,1 +1,1 @@
-docker build --progress=plain -t orbslam3_ros:v6 .
+docker build --progress=plain -t orbslam3_ros:v7 .

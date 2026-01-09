@@ -29,14 +29,13 @@ class CompressedImageToImage:
             queue_size=1
         )
         
-        rospy.loginfo("开始转换压缩图像为RGB原始图像...")
+        rospy.loginfo("开始转换压缩图像为BGR原始图像...")
         rospy.loginfo("订阅: /cv_camera/image_compressed")
         rospy.loginfo("发布: /camera/image_raw")
         
     def compressed_callback(self, msg):
         try:
-            # 将压缩图像消息转换为OpenCV图像
-            # 注意：压缩图像数据在msg.data中
+            # 将压缩图像消息转换为OpenCV图像（直接得到BGR格式）
             np_arr = np.frombuffer(msg.data, np.uint8)
             cv_image = cv2.imdecode(np_arr, cv2.IMREAD_COLOR)
             
@@ -44,11 +43,9 @@ class CompressedImageToImage:
                 rospy.logwarn("无法解码压缩图像")
                 return
             
-            # 将BGR转换为RGB（OpenCV默认读取为BGR）
-            cv_image_rgb = cv2.cvtColor(cv_image, cv2.COLOR_BGR2RGB)
-            
-            # 将OpenCV图像转换为ROS Image消息
-            image_msg = self.bridge.cv2_to_imgmsg(cv_image_rgb, "rgb8")
+            # 关键修改1：移除BGR转RGB的步骤，直接使用OpenCV解码后的BGR图像
+            # 关键修改2：cv2_to_imgmsg的编码格式改为"bgr8"（对应OpenCV的BGR格式）
+            image_msg = self.bridge.cv2_to_imgmsg(cv_image, "bgr8")
             
             # 复制时间戳和帧ID以保持同步
             image_msg.header.stamp = msg.header.stamp
