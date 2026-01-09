@@ -2,7 +2,8 @@
 ---
 # 服务响应：包含4类核心数据
 sensor_msgs/Image current_image          # 当前跟踪图像
-sensor_msgs/PointCloud2 tracked_points_xyz # 跟踪点（x:像素x, y:像素y, z:相机深度）
+sensor_msgs/PointCloud2 tracked_points_camera # 跟踪点相机坐标（x:像素x, y:像素y, z:相机深度）
+sensor_msgs/PointCloud2 tracked_points_world # 跟踪点世界坐标
 geometry_msgs/PoseStamped camera_pose    # 当前相机位姿
 # 硬编码相机内参
 float64 fx
@@ -10,3 +11,4 @@ float64 fy
 float64 cx
 float64 cy
 bool success                             # 服务执行状态标记（辅助调用方判断）
+
