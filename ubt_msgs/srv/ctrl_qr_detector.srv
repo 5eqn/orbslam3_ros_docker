@@ -1,0 +1,6 @@
+bool enable
+bool enableStream
+---
+int32 rc
+string msg
+int32 port

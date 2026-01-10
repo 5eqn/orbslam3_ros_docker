@@ -1,0 +1,5 @@
+string task
+string operation
+---
+int32 rc
+string url

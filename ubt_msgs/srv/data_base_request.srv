@@ -1,0 +1,5 @@
+int32 option # 0 insert (targets), 1 get (all, targets), 2 modify (targets), 3 remove (all, targets)  
+ubt_msgs/face_data[] input
+---
+int32 rc
+ubt_msgs/face_data[] output

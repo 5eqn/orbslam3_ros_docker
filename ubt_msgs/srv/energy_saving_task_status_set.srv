@@ -1,0 +1,4 @@
+uint32 status_bit_mask
+int32 operation #0 for unset, 1 for set
+---
+int32 rc

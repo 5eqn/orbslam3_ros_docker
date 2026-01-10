@@ -1,0 +1,7 @@
+bool enable
+string name
+string imageTopic
+---
+int32 rc
+int32 port
+string msg

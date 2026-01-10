@@ -1,0 +1,15 @@
+# Action name
+string name
+# repeat times
+int32 repeat
+# blockly md5 file name
+string blockly_dir
+string user_name
+int64 time_stamp
+int8 low_power_pass
+int8 type
+int8 speed_level
+---
+# get time total time from hal
+int32 total_time
+int32 rc

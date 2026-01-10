@@ -1,0 +1,4 @@
+uint32 status
+uint32 status_bit_mask
+---
+int32 rc

@@ -1,0 +1,5 @@
+int32 next_act_status
+string name
+int8 type
+---
+int32 rc

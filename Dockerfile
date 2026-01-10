@@ -13,6 +13,7 @@ COPY common.h ./src/orb_slam3_ros/include/common.h
 COPY common.cc ./src/orb_slam3_ros/src/common.cc
 COPY ros_mono_inertial.cc ./src/orb_slam3_ros/src/ros_mono_inertial.cc
 COPY ros_mono.cc ./src/orb_slam3_ros/src/ros_mono.cc
+COPY orb_slam3 ./src/orb_slam3_ros/orb_slam3
 RUN catkin build orb_slam3_ros
 
 COPY pi.yaml ./src/orb_slam3_ros/config/Monocular/pi.yaml

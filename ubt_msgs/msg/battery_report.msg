@@ -1,0 +1,4 @@
+int32 charging
+int32 voltage
+int32 percent
+int32 dc

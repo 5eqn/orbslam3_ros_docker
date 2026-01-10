@@ -1,0 +1,6 @@
+string task
+int32 width
+int32 height
+string dir
+---
+int32 rc

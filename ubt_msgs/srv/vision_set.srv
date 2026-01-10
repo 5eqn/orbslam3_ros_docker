@@ -1,0 +1,11 @@
+string module_name
+string task_name
+string operation
+int32 timeout
+int64 timestamp
+StandaloneTag[] tags
+bool enableStream
+int32[] param
+---
+int32 rc
+int32 port

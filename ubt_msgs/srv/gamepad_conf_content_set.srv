@@ -1,0 +1,4 @@
+string conf_name
+ubt_msgs/gamepad[] conf_content
+---
+int32 rc
