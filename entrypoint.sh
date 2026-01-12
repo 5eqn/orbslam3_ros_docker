@@ -19,8 +19,8 @@ then
   echo "Sourced overlay workspace"
 fi
 
-# Add UBTech messages to package path
 export ROS_PACKAGE_PATH=/overlay_ws/devel/share/ubt_msgs:$ROS_PACKAGE_PATH
+export KALIBR_MANUAL_FOCAL_LENGTH_INIT=1
 
 # Execute the command passed into this entrypoint
 exec "$@"

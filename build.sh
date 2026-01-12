@@ -1,1 +1,1 @@
-docker build --progress=plain -t orbslam3_ros:v9 .
+docker build --network=host --progress=plain -t orbslam3_ros:v10 .
