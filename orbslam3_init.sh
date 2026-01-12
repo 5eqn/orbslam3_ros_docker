@@ -1,3 +1,4 @@
 python /decompress_node.py &
-python /server.py &
+python /image_server.py &
+python /angle_server.py &
 roslaunch ros_tcp_endpoint endpoint.launch

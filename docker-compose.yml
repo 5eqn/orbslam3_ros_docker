@@ -1,10 +1,11 @@
+version: '3'
+
 services:
   orbslam3:
-    image: orbslam3_ros:v8
+    image: orbslam3_ros:v9
     container_name: orbslam3
     hostname: orbslam3
-    networks:
-      - ros-network
+    network_mode: "host"  # 使用主机网络
     environment:
       - ROS_HOSTNAME=orbslam3
       - ROS_MASTER_URI=http://orbslam3:11311
@@ -12,10 +13,6 @@ services:
       - QT_X11_NO_MITSHM=1
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
-    ports:
-      - "11311:11311"  # 暴露ROS主节点端口
-      - "51121:51121"  # 暴露自定义服务端口
-      - "10000:10000"  # 暴露Unity端口
     command: bash /orbslam3_init.sh
     tty: true
     stdin_open: true
@@ -24,14 +21,12 @@ services:
     image: stereolabs/kalibr:kinetic
     container_name: kalibr
     hostname: kalibr
-    networks:
-      - ros-network
+    network_mode: "host"  # 使用主机网络
     depends_on:
       - orbslam3
     environment:
-      - ROS_HOSTNAME=kalibr
+      - ROS_HOSTNAME=orbslam3
       - ROS_MASTER_URI=http://orbslam3:11311
-      - ROS_IP=kalibr
       - DISPLAY=:2
       - QT_X11_NO_MITSHM=1
     volumes:
@@ -39,8 +34,3 @@ services:
     command: tail -f /dev/null
     tty: true
     stdin_open: true
-
-networks:
-  ros-network:
-    driver: bridge
-    name: ros-network
