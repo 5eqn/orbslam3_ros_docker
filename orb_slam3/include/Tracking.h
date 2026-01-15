@@ -113,6 +113,9 @@ public:
 
     float GetImageScale();
 
+    // Camera access
+    GeometricCamera* GetCamera();
+
 #ifdef REGISTER_LOOP
     void RequestStop();
     bool isStopped();

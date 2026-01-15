@@ -1,5 +1,5 @@
 /**
-* 
+*
 * Common functions and variables across all modes (mono/stereo, with or w/o imu)
 *
 */
@@ -89,7 +89,7 @@ void publish_topics(ros::Time msg_time, Eigen::Vector3f Wbb)
 
     if (Twc.translation().array().isNaN()[0] || Twc.rotationMatrix().array().isNaN()(0,0)) // avoid publishing NaN
         return;
-    
+
     // Common topics
     publish_camera_pose(Twc, msg_time);
     publish_tf_transform(Twc, world_frame_id, cam_frame_id, msg_time);
@@ -186,7 +186,7 @@ void publish_tracking_img(cv::Mat image, ros::Time msg_time)
 }
 
 void publish_keypoints(std::vector<ORB_SLAM3::MapPoint*> tracked_map_points, std::vector<cv::KeyPoint> tracked_keypoints, ros::Time msg_time)
-{   
+{
     std::vector<cv::KeyPoint> finalKeypoints;
 
     int numKFs = tracked_keypoints.size();
@@ -211,7 +211,7 @@ void publish_keypoints(std::vector<ORB_SLAM3::MapPoint*> tracked_map_points, std
 
     // Display the image (optional)
     //cv::imshow("Keypoints", blankImg);
-    //cv::waitKey(1);  
+    //cv::waitKey(1);
 
     sensor_msgs::PointCloud2 cloud = keypoints_to_pointcloud(finalKeypoints, msg_time);
 
@@ -222,14 +222,14 @@ void publish_keypoints(std::vector<ORB_SLAM3::MapPoint*> tracked_map_points, std
 void publish_tracked_points(std::vector<ORB_SLAM3::MapPoint*> tracked_points, ros::Time msg_time)
 {
     sensor_msgs::PointCloud2 cloud = mappoint_to_pointcloud(tracked_points, msg_time);
-    
+
     tracked_mappoints_pub.publish(cloud);
 }
 
 void publish_all_points(std::vector<ORB_SLAM3::MapPoint*> map_points, ros::Time msg_time)
 {
     sensor_msgs::PointCloud2 cloud = mappoint_to_pointcloud(map_points, msg_time);
-    
+
     all_mappoints_pub.publish(cloud);
 }
 
@@ -239,7 +239,7 @@ void publish_kf_markers(std::vector<Sophus::SE3f> vKFposes, ros::Time msg_time)
     int numKFs = vKFposes.size();
     if (numKFs == 0)
         return;
-    
+
     visualization_msgs::Marker kf_markers;
     kf_markers.header.frame_id = world_frame_id;
     kf_markers.ns = "kf_markers";
@@ -263,7 +263,7 @@ void publish_kf_markers(std::vector<Sophus::SE3f> vKFposes, ros::Time msg_time)
         kf_marker.z = vKFposes[i].translation().z();
         kf_markers.points.push_back(kf_marker);
     }
-    
+
     kf_markers_pub.publish(kf_markers);
 }
 
@@ -277,7 +277,7 @@ sensor_msgs::PointCloud2 keypoints_to_pointcloud(std::vector<cv::KeyPoint>& keyp
     sensor_msgs::PointCloud2 cloud;
 
     cloud.header.stamp = msg_time;
-    cloud.header.frame_id = world_frame_id; 
+    cloud.header.frame_id = world_frame_id;
     cloud.height = 1;
     cloud.width = keypoints.size();
     cloud.is_bigendian = false;
@@ -375,7 +375,7 @@ cv::Mat SE3f_to_cvMat(Sophus::SE3f T_SE3f)
 
     Eigen::Matrix4f T_Eig3f = T_SE3f.matrix();
     cv::eigen2cv(T_Eig3f, T_cvmat);
-    
+
     return T_cvmat;
 }
 
@@ -404,10 +404,6 @@ bool get_tracking_data_srv(orb_slam3_ros::GetTrackingData::Request &req,
                            orb_slam3_ros::GetTrackingData::Response &res)
 {
     // 1. 初始化服务响应（默认success为true，内参直接赋值）
-    res.fx = CAM_FX;
-    res.fy = CAM_FY;
-    res.cx = CAM_CX;
-    res.cy = CAM_CY;
     res.success = true;
 
     // 2. 获取当前相机位姿（复用现有逻辑，避免NaN）
@@ -557,10 +553,14 @@ bool get_tracking_data_srv(orb_slam3_ros::GetTrackingData::Request &req,
         // 核心修改4：直接使用筛选后的合法点数据，无需再判断nullptr（已提前过滤）
         // ======================================
         // 7.1 填充相机坐标数据（像素x/y + 相机深度z）
-        float pixel_x = static_cast<float>(valid_tracked_keypoints[i].pt.x);
-        float pixel_y = static_cast<float>(valid_tracked_keypoints[i].pt.y);
         Eigen::Vector3f Pw = valid_tracked_map_points[i]->GetWorldPos(); // 世界坐标系下3D点（必合法）
         Eigen::Vector3f Pc = Tcw * Pw; // 转换到相机坐标系（Pc = Tcw * Pw）
+        Eigen::Vector2f projected_eigen = pSLAM->GetCamera()->project(Pc);
+        cv::Point2f projected_pt(projected_eigen.x(), projected_eigen.y());
+
+        float pixel_x = projected_pt.x; // Use this instead of valid_tracked_keypoints[i].pt.x
+        float pixel_y = projected_pt.y; // Use this instead of valid_tracked_keypoints[i].pt.y
+
         float camera_depth_z = Pc.z(); // 相机深度：相机坐标系下z轴分量
         float camera_data[3] = {pixel_x, pixel_y, camera_depth_z};
         memcpy(camera_cloud_ptr + (i * camera_cloud.point_step), camera_data, num_channels * sizeof(float));

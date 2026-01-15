@@ -1397,6 +1397,8 @@ void System::ChangeDataset() {
 
 float System::GetImageScale() { return mpTracker->GetImageScale(); }
 
+GeometricCamera* System::GetCamera() { return mpTracker->GetCamera(); }
+
 #ifdef REGISTER_TIMES
 void System::InsertRectTime(double &time) {
   mpTracker->vdRectStereo_ms.push_back(time);

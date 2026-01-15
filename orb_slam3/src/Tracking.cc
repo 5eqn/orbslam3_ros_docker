@@ -4145,6 +4145,11 @@ bool Tracking::isImuPreintegrated()
     return mCurrentFrame.mpImuPreintegrated;
 }
 
+GeometricCamera* Tracking::GetCamera()
+{
+    return mpCamera;
+}
+
 #ifdef REGISTER_LOOP
 void Tracking::RequestStop()
 {

@@ -204,6 +204,9 @@ public:
 
   float GetImageScale();
 
+  // Camera access
+  GeometricCamera* GetCamera();
+
 #ifdef REGISTER_TIMES
   void InsertRectTime(double &time);
   void InsertResizeTime(double &time);
