@@ -6,7 +6,7 @@ import rospy
 from geometry_msgs.msg import PoseStamped
 
 class MultiTopicServer:
-    def __init__(self, port=51118):
+    def __init__(self, port=21118):
         self.port = port
         self.clients = []
         self.lock = threading.Lock()
@@ -102,7 +102,7 @@ class MultiTopicServer:
         self.server_sock.close()
 
 if __name__ == '__main__':
-    server = MultiTopicServer(port=51118)
+    server = MultiTopicServer(port=21118)
     try:
         server.run()
     except rospy.ROSInterruptException:

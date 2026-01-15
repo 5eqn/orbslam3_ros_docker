@@ -28,7 +28,7 @@ class ParamRequestHandler(socketserver.StreamRequestHandler):
             rospy.logerr(f"Proxy Error: {e}")
 
 class ParamProxyServer:
-    def __init__(self, port=51119):
+    def __init__(self, port=21119):
         self.port = port
         self.server = None
 

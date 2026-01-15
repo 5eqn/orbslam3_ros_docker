@@ -10,7 +10,7 @@ from cv_bridge import CvBridge
 from orb_slam3_ros.srv import GetTrackingData, GetTrackingDataRequest
 
 class ImageTrackingDataServer:
-    def __init__(self, port=51121):
+    def __init__(self, port=21121):
         rospy.init_node('tracking_data_byte_server', anonymous=True)
         self.bridge = CvBridge()
         self.lock = threading.Lock()
@@ -216,7 +216,7 @@ class ImageTrackingDataServer:
 
 if __name__ == '__main__':
     try:
-        ImageTrackingDataServer(51121)
+        ImageTrackingDataServer(21121)
     except rospy.ROSInterruptException:
         rospy.loginfo("=== [Server] Node interrupted, exiting ===")
     except Exception as e:

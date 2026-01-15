@@ -44,7 +44,7 @@ COPY imu_node.py /imu_node.py
 COPY image_server.py /image_server.py
 COPY angle_server.py /angle_server.py
 COPY param_server.py /param_server.py
-COPY pose_server /pose_server.py
+COPY pose_server.py /pose_server.py
 COPY entrypoint.sh /entrypoint.sh
 COPY orbslam3_init.sh /orbslam3_init.sh
 COPY ubt_msgs_py ./devel/lib/python3/dist-packages/ubt_msgs

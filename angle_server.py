@@ -10,7 +10,7 @@ from ubt_msgs.msg import angles_set
 from ubt_msgs.srv import servo_read, servo_readRequest
 
 class JointAngleTCPServer:
-    def __init__(self, port=51120):
+    def __init__(self, port=21120):
         # 1. 初始化ROS节点
         rospy.init_node('joint_angle_tcp_server', anonymous=True)
         self.lock = threading.Lock()
@@ -234,7 +234,7 @@ class JointAngleTCPServer:
 
 if __name__ == '__main__':
     try:
-        JointAngleTCPServer(51120)
+        JointAngleTCPServer(21120)
     except rospy.ROSInterruptException:
         rospy.loginfo("=== [Server] Node interrupted, exiting ===")
     except Exception as e:
